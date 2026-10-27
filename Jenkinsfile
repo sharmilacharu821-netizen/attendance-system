@@ -1,24 +1,44 @@
+
 pipeline {
     agent any
+
+    environment {
+        DOCKER = 'C:\\Users\\Sharmila Sivakumar\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
+        IMAGE = 'attendance-system'
+    }
 
     stages {
         stage('Checkout') {
             steps {
-                echo 'Attendance System v1'
-                echo 'Jenkins pipeline started successfully!'
+                echo 'Attendance System v1 - source checked out'
             }
         }
 
-        stage('Check Docker CLI') {
+        stage('Check Docker') {
             steps {
-                bat '"C:\\Users\\Sharmila Sivakumar\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" --version'
+                bat '"%DOCKER%" --version'
             }
         }
 
-        stage('Verify Attendance Image') {
+        stage('Build Docker Image v1') {
             steps {
-                bat '"C:\\Users\\Sharmila Sivakumar\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" image inspect attendance-system:v1'
+                bat '"%DOCKER%" build -t %IMAGE%:v1 .'
             }
+        }
+
+        stage('Verify Docker Image v1') {
+            steps {
+                bat '"%DOCKER%" image inspect %IMAGE%:v1'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'SUCCESS: Attendance System v1 Docker image built and verified.'
+        }
+        failure {
+            echo 'FAILED: Check Console Output for the exact error.'
         }
     }
 }
