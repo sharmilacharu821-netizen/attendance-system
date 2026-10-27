@@ -9,16 +9,15 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Check Docker CLI') {
             steps {
-                bat 'docker --version'
-                bat 'docker image inspect attendance-system:v1'
+                bat '"C:\\Users\\Sharmila Sivakumar\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" --version'
             }
         }
 
-        stage('Verify Docker Hub Image') {
+        stage('Verify Attendance Image') {
             steps {
-                bat 'docker image inspect sharmila1327/attendancesystem:v1'
+                bat '"C:\\Users\\Sharmila Sivakumar\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" image inspect attendance-system:v1'
             }
         }
     }
