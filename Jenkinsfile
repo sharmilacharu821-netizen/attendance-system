@@ -22,7 +22,7 @@ pipeline {
 
         stage('Build Docker Image v1') {
             steps {
-                bat '"%DOCKER%" build -t %IMAGE%:v1 .'
+                 bat '"%DOCKER%" build --progress=plain --no-cache -t %IMAGE%:v1 .'
             }
         }
 
